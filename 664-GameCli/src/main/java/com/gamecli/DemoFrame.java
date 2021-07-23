@@ -1,16 +1,14 @@
 package main.java.com.test;
 
 import main.java.com.test.config.Constants;
-import main.java.com.test.config.Keys;
+import main.java.com.test.util.Keys;
 import main.java.com.test.gameelements.Face;
 import main.java.com.test.gameelements.FootBall;
 import main.java.com.test.gameelements.Plane;
-import main.java.com.test.gameelements.base.GameObject;
 import main.java.com.test.gameelements.base.IDraw;
 import main.java.com.test.util.GameUtil;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

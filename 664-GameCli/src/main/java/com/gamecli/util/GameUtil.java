@@ -26,6 +26,11 @@ public class GameUtil {
 
     }
 
+    /**
+     * 获取图片资源
+     * @param path
+     * @return
+     */
     public static Image getImages(String path){
         BufferedImage bufferedImage = null;
         try {

@@ -1,4 +1,4 @@
-package main.java.com.test.config;
+package main.java.com.test.util;
 
 
 import java.awt.event.KeyEvent;
