@@ -27,7 +27,7 @@ import java.util.Date;
  */
 public class MyGameFrame extends Frame{
 
-    private static MyGameFrame myGameFrame = new MyGameFrame();
+//    private static MyGameFrame myGameFrame = new MyGameFrame();
 
     boolean liveStart = false;   //游戏开始
     boolean paus = false;   //暂停
@@ -54,7 +54,7 @@ public class MyGameFrame extends Frame{
 
 
     public static void main(String[] args) {
-
+        MyGameFrame myGameFrame = new MyGameFrame();
         myGameFrame.launchFrame();
     }
 
@@ -81,6 +81,15 @@ public class MyGameFrame extends Frame{
                     }
                     //画出爆炸效果
                     bao.drawMySelf(g);
+
+                }
+                if(!plane.live){
+                    if(endTime==null){
+                        endTime = new Date();
+                    }
+                    int period = (int)((endTime.getTime()-startTime.getTime())/1000);
+                    FontGame fontGame = new FontGame();
+                    fontGame.drawFont(g,"时间:"+period+" 秒");
 
                 }
             }
@@ -123,9 +132,10 @@ public class MyGameFrame extends Frame{
 
     public void launchFrame(){
         setTitle("游戏框架");
-        setVisible(true);
+
         setSize(Constants.bgWidth,Constants.bgHeight);
         setLocation(400,50);
+        setVisible(true);
 
         //初始化炮弹
         for(int i=0;i<30;i++){
@@ -205,7 +215,7 @@ public class MyGameFrame extends Frame{
             //这里存在问题是会不断开启新的线程？？？？？
             if(e.getKeyCode() == KeyEvent.VK_SPACE){
 
-//                MyGameFrame myGameFrame = new MyGameFrame();
+                MyGameFrame myGameFrame = new MyGameFrame();
                 myGameFrame.launchFrame();
             }
             plane.minusDirection(e);
