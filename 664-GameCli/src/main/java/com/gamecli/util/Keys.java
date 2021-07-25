@@ -1,4 +1,4 @@
-package main.java.com.test.util;
+package main.java.com.gamecli.util;
 
 
 import java.awt.event.KeyEvent;

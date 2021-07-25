@@ -1,4 +1,4 @@
-package main.java.com.test.util;
+package main.java.com.gamecli.util;
 
 /**
  * @ProjectName: 23designpattern_java

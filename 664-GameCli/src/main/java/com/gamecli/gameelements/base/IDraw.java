@@ -1,4 +1,4 @@
-package main.java.com.test.gameelements.base;
+package main.java.com.gamecli.gameelements.base;
 
 import java.awt.*;
 

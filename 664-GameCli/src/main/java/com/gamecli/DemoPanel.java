@@ -1,13 +1,11 @@
-package main.java.com.test;
+package main.java.com.gamecli;
 
-import main.java.com.test.config.Constants;
-import main.java.com.test.gameelements.FootBall;
-import main.java.com.test.gameelements.base.IDraw;
-import main.java.com.test.util.GameUtil;
+import main.java.com.gamecli.config.Constants;
+import main.java.com.gamecli.gameelements.base.IDraw;
+import main.java.com.gamecli.util.GameUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 
 /**
@@ -24,7 +22,7 @@ public class DemoPanel extends JPanel{
     //缓冲
     private Image offScreenImage = null;
     //背景图
-    private Image backgroundImage = GameUtil.getImages("images/bg.png");
+    private Image backgroundImage = GameUtil.getImages("images/bg_dark.jpg");
 
     public DemoPanel() {
     }

@@ -1,12 +1,12 @@
-package main.java.com.test;
+package main.java.com.gamecli;
 
-import main.java.com.test.config.Constants;
-import main.java.com.test.util.Keys;
-import main.java.com.test.gameelements.Face;
-import main.java.com.test.gameelements.FootBall;
-import main.java.com.test.gameelements.Plane;
-import main.java.com.test.gameelements.base.IDraw;
-import main.java.com.test.util.GameUtil;
+import main.java.com.gamecli.config.Constants;
+import main.java.com.gamecli.util.Keys;
+import main.java.com.gamecli.gameelements.player.FireBullet;
+import main.java.com.gamecli.gameelements.enemy.Stone;
+import main.java.com.gamecli.gameelements.player.Plane;
+import main.java.com.gamecli.gameelements.base.IDraw;
+import main.java.com.gamecli.util.GameUtil;
 
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
@@ -40,16 +40,14 @@ public class DemoFrame extends JFrame {
         ArrayList<IDraw> arrayList = new ArrayList<>();
 
         //游戏元素
-        FootBall footBall = new FootBall();
-//        Face face = new Face();
+        Stone stone = new Stone();
         Plane plane = new Plane();
 
-        arrayList.add(footBall);
-//        arrayList.add(face);
+        arrayList.add(stone);
         arrayList.add(plane);
-        Face[] bullet = new Face[100];
+        FireBullet[] bullet = new FireBullet[100];
         for(int i=0;i<100;i++) {
-            bullet[i] = new Face();
+            bullet[i] = new FireBullet();
             bullet[i].setY(1000);
             bullet[i].setStatus(1);
             arrayList.add(bullet[i]);
@@ -67,10 +65,10 @@ public class DemoFrame extends JFrame {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if(footBall.getX()>Constants.bgWidth){
-                footBall.setX(0);
+            if(stone.getX()>Constants.bgWidth){
+                stone.setX(0);
             }else {
-                footBall.setX(footBall.getX() + 10);
+                stone.setX(stone.getX() + 10);
             }
 
             for(int i=0;i<100;i++){
@@ -78,9 +76,9 @@ public class DemoFrame extends JFrame {
                 if (bullet[i].getY() < 1000 && bullet[i].getStatus()== 2 && bullet[i].getY() > -50) {
                     bullet[i].setY(bullet[i].getY() - 10);
                     System.out.println("第 "+i+" 颗子弹信息===>：("+ bullet[i].getRect().toString()+")======");
-                    System.out.println("足球信息--->：("+ footBall.getRect().toString()+")------");
-                    System.out.println(bullet[i].intersects(footBall));
-                    Constants.TIMER_STOP_ON_OFF = bullet[i].intersects(footBall);
+                    System.out.println("足球信息--->：("+ stone.getRect().toString()+")------");
+                    System.out.println(bullet[i].intersects(stone));
+                    Constants.TIMER_STOP_ON_OFF = bullet[i].intersects(stone);
                     if(Constants.TIMER_STOP_ON_OFF){ //必须跳出这个循环不然变量值还是会发生改变
                         break;
                     }
