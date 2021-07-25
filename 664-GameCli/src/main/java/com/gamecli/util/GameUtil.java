@@ -57,44 +57,46 @@ public class GameUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int alpha = 255;
-        String removeRgb = null;
-        // 遍历Y轴的像素
-        for (int y = bufferedImage.getMinY(); y < bufferedImage.getHeight(); y++) {
-            // 遍历X轴的像素
-            for (int x = bufferedImage.getMinX(); x < bufferedImage.getWidth(); x++) {
-                int rgb = bufferedImage.getRGB(x, y);
-                // 取图片边缘颜色作为对比对象
-                if (y == bufferedImage.getMinY() && x == bufferedImage.getMinX()) {
-                    removeRgb = convertRgb(rgb);
-                }
-                // 设置为透明背景
-                if (removeRgb.equals(convertRgb(rgb))) {
-                    alpha = 0;
-                } else {
-                    alpha = 255;
-                }
-                rgb = (alpha << 24) | (rgb & 0x00ffffff);
-                System.out.println(Integer.toHexString(rgb));
-                bufferedImage.setRGB(x, y, rgb);
+
+        //获取源图像的宽高
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+        System.out.println(width+" "+height);
+        //实例化一个同样大小的图片，并将type设为 BufferedImage.TYPE_4BYTE_ABGR，支持alpha通道的rgb图像
+        BufferedImage resImage = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+
+        double grayMean = 0;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int rgb = bufferedImage.getRGB(i,j);
+                int r = (0xff&rgb);
+                int g = (0xff&(rgb>>8));
+                int b = (0xff&(rgb>>16));
+                //这是灰度值的计算公式
+                grayMean += (r*0.299+g*0.587+b*0.114);
             }
         }
+        //计算平均灰度
+        grayMean = grayMean/(width*height);
 
-        return bufferedImage;
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int rgb = bufferedImage.getRGB(i,j);
+                //一个int是32位,java中按abgr的顺序存储，即前8位是alpha，最后8位是r，所以可以通过下面的方式获取到rgb的值
+                int r = (0xff&rgb);
+                int g = (0xff&(rgb>>8));
+                int b = (0xff&(rgb>>16));
+                double gray = (r*0.299+g*0.587+b*0.114);
+                //如果灰度值大于之前求的平均灰度值，则将其alpha设为0，下面准确写应该是rgb = r + (g << 8) + (b << 16) ＋ （0 << 24）;
+                if (gray>grayMean){
+                    rgb = r + (g << 8) + (b << 16);
+                }
+                resImage.setRGB(i,j,rgb);
+            }
+        }
+        return resImage;
     }
 
-
-    /**
-     * 转RGB
-     * @param color
-     * @return
-     */
-    public static String convertRgb(int color) {
-        int red = (color & 0xff0000) >> 16;// 获取color(RGB)中R位
-        int green = (color & 0x00ff00) >> 8;// 获取color(RGB)中G位
-        int blue = (color & 0x0000ff);// 获取color(RGB)中B位
-        return red + "," + green + "," + blue;
-    }
 
 
 
